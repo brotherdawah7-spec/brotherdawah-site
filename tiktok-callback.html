@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok connected</title><style>:root{--bg:#fbfaf7;--fg:#1d1d1b;--mut:#5f5e58;--acc:#1f6f5c;--card:#fff;--line:#e7e4dc}
+@media (prefers-color-scheme:dark){:root{--bg:#121412;--fg:#ecebe6;--mut:#a5a39b;--acc:#5fc2a5;--card:#1b1e1b;--line:#2c302c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:48px 16px}h1{font-size:28px;margin:0 0 4px}h2{font-size:19px;margin:28px 0 6px}
+p,li{color:var(--mut)}a{color:var(--acc)}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:20px 0}
+code{display:block;word-break:break-all;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:14px;color:var(--fg)}
+button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:15px;cursor:pointer;margin-top:10px}
+footer{margin-top:40px;font-size:14px}</style></head><body><main>
+<h1 id="h">Connecting TikTok…</h1><p id="msg">Reading the response from TikTok.</p>
+<div class="card" id="box" hidden><p style="margin-top:0">Your one-time TikTok code (it expires in a few minutes and only works once):</p>
+<code id="code"></code><button id="copy">Copy code</button>
+<p>Next: open the <a id="wf" href="https://github.com/brotherdawah7-spec/ig-autopost/actions/workflows/tiktok-auth.yml" target="_blank" rel="noopener">TikTok connect workflow</a>,
+click <b>Run workflow</b>, paste the code, and click the green <b>Run workflow</b> button.</p></div>
+<script>
+const q=new URLSearchParams(location.search),code=q.get('code'),err=q.get('error');
+const h=document.getElementById('h'),msg=document.getElementById('msg');
+if(code){h.textContent='TikTok approved';msg.textContent='Almost done. Copy the code below and paste it into GitHub within a few minutes.';
+ document.getElementById('code').textContent=code;document.getElementById('box').hidden=false;
+ document.getElementById('copy').onclick=()=>{navigator.clipboard.writeText(code).then(()=>{document.getElementById('copy').textContent='Copied';});};}
+else if(err){h.textContent='TikTok did not connect';msg.textContent='TikTok returned: '+err+(q.get('error_description')?' – '+q.get('error_description'):'')+'. Try the connect link again.';}
+else{h.textContent='Nothing to show';msg.textContent='This page is used after you approve the app on TikTok.';}
+</script>
+<footer><a href="./">Home</a> · <a href="terms.html">Terms of Service</a> · <a href="privacy.html">Privacy Policy</a></footer></main></body></html>
